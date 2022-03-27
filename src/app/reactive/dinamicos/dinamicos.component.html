@@ -2,14 +2,15 @@
 <hr>
 
 
-<form autocomplete="off">
+<form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="guardar()">
   <!-- Nombre de la persona -->
   <div class="row mb-3">
     <label class="col-sm-3 col-form-label">Nombre</label>
     <div class="col-sm-9">
       <input class="form-control"
+             formControlName="nombre"
              placeholder="Nombre de la persona">
-        <span class="form-text text-danger">
+        <span class="form-text text-danger" *ngIf="campoNoEsValido('nombre')">
             Este campo es obligatorio
         </span>
     </div>
@@ -30,25 +31,32 @@
   </div>
 
   <!-- Favoritos -->
-  <div class="row">
+  <!-- <div class="row">
     <label class="col-sm-3 col-form-label">Favoritos</label>
-    <div class="col-sm-9">
-      <!-- <div class="input-group mb-1" *ngFor="let juego of persona.favoritos; let i = index">
-        <input class="form-control">
-        <button class="btn btn-outline-danger" type="button" (click)="borrar(i)">
+    <div class="col-sm-9" formArrayName="favoritos">
+      <div class="input-group mb-1" *ngFor="let favorito of favoritosArr.controls; let i = index">
+        <input class="form-control" [formControlName]="i">
+        <button class="btn btn-outline-danger" type="button">
           <i class="fa-solid fa-trash m-1"></i>Borrar
         </button>
-      </div> -->
+      </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="row">
     <div class="col-sm-12">
-      <button type="button"
+      <button type="submit"
               class="btn btn-primary float-end">Guardar</button>
     </div>
   </div>
 </form>
+
+<span>Valid</span>
+<pre>{{miFormulario.valid}}</pre>
+
+<!-- <span>Value</span>
+<pre>{{miFormulario.value | json}}</pre> -->
+
 
 <!-- <span>Persona</span>
 <pre>{{persona | json}}</pre> -->
